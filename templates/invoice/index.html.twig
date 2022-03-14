@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Invoice index{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1>Invoice index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>InvoiceDate</th>
+                <th>InvoiceNumber</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for invoice in invoices %}
+            <tr>
+                <td>{{ invoice.id }}</td>
+                <td>{{ invoice.InvoiceDate ? invoice.InvoiceDate|date('Y-m-d') : '' }}</td>
+                <td>{{ invoice.InvoiceNumber }}</td>
+                <td>
+                    <a href="{{ path('app_invoice_show', {'id': invoice.id}) }}">show</a>
+                    <a href="{{ path('app_invoice_edit', {'id': invoice.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_invoice_new') }}" class="btn btn-primary">Create new</a>
+</div>
+{% endblock %}
